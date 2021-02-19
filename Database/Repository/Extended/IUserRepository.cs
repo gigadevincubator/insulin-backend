@@ -2,7 +2,7 @@
 
 namespace insulin_backend.Database.Repository.Extended
 {
-    public interface IPatientRepository : IRepository<Patient>
+    public interface IUserRepository : IRepository<User>
     {
         
     }

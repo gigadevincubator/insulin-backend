@@ -2,9 +2,9 @@
 
 namespace insulin_backend.Database.Repository.Extended
 {
-    public class PatientRepository : Repository<Patient>, IPatientRepository
+    public class UserRepository : Repository<User>, IUserRepository
     {
-        public PatientRepository(DataContext context) : base(context)
+        public UserRepository(DataContext context) : base(context)
         {
             
         }

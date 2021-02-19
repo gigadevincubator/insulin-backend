@@ -7,18 +7,19 @@ namespace insulin_backend.Database.Repository
     {
         private readonly DataContext _context;
 
+        public UnitOfWork()
+        {}
+
         public UnitOfWork(DataContext context)
         {
             _context = context;
             Tutorials = new TutorialRepository(_context);
-            Doctors = new DoctorRepository(_context);
-            Patients = new PatientRepository(_context);
+            Users = new UserRepository(_context);
             Languages = new LanguageRepository(_context);
         }
         
         public ITutorialRepository Tutorials { get; }
-        public IDoctorRepository Doctors { get; }
-        public IPatientRepository Patients { get; }
+        public IUserRepository Users { get; }
         public ILanguageRepository Languages { get; }
 
         public int Complete()
