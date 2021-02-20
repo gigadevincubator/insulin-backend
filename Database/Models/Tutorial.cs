@@ -10,6 +10,6 @@ namespace insulin_backend.Database.Models
         [Required]
         public string Color { get; set; }
         
-        public ICollection<User> Users { get; set; }
+        // public ICollection<User> Users { get; set; }
     }
 }

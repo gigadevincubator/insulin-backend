@@ -17,5 +17,9 @@ namespace insulin_backend.Database.Models
         public Tutorial Tutorial { get; set; }
         [Required]
         public string Title { get; set; }
+        
+        public int UserId { get; set; }
+        [ForeignKey("UserId")]
+        public User User { get; set; }
     }
 }

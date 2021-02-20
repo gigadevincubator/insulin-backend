@@ -23,6 +23,6 @@ namespace insulin_backend.Database.Models
         public DateTime DateOfBirth { get; set; }
         [Required]
         public string HashedPassword { get; set; }
-        public ICollection<Tutorial> Tutorials { get; set; }
+        public ICollection<TutorialLanguage> Tutorials { get; set; }
     }
 }
