@@ -22,11 +22,11 @@ namespace insulin_backend.Controllers
         }
 
         [HttpGet("{userId}/tutorials")]
-        public async Task<ActionResult<IList<User>>> GetAllUsersTutorials([FromRoute] int userId)
+        public Object GetAllUsersTutorials([FromRoute] int userId)
         {
             try
             {
-                User tutorials = await _userService.GetAllUsersTutorials(userId);
+                Object tutorials =  _userService.GetAllUsersTutorials(userId);
                 return Ok(tutorials);
             }
             catch (NotFoundException e)
