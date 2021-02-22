@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -18,37 +19,51 @@ namespace insulin_backend.Services.User
             this.dbContext = dbContext;
         }
 
-//todo this can be optimized using only one query or using LINQ include statement 
         public Object GetAllUsersTutorials(int userId)
         {
-// // Find the user based on the user ID
-//             var user = await dbContext.Users.FindAsync(userId);
-//             if (user == null)
-//             {
-//                 throw new NotFoundException();
-//             }
-//
-// // Load All related child entities of the user
-//             await dbContext.Entry(user).Collection(p => p.Tutorials).LoadAsync();
-//             foreach (var tutorial in user.Tutorials)
-//             {
-//                 await dbContext.Entry(tutorial).Reference(p => p.Tutorial).LoadAsync();
-//                 await dbContext.Entry(tutorial).Reference(p => p.Language).LoadAsync();
-//             }
+            // final object that must be returned 
+            ArrayList tutorialToReturn = new ArrayList();
 
-            var step =
-                (from u in dbContext.Users
-                    join tl in dbContext.TutorialLanguages on u.Id equals tl.UserId
-                    join t in dbContext.Tutorials on tl.TutorialId equals t.Id
-                    join s in dbContext.Steps on t.Id equals s.Id
-                    where tl.UserId == userId
-                    select new
-                    {
-                        t=t,tl=tl,s=s
-                      
-                    });
-            return step;
-         
+            // Join three tables: Users, TutorialLanguages, Tutorials 
+            var fetchedTutorialData =
+                from u in dbContext.Users
+                join tl in dbContext.TutorialLanguages on u.Id equals tl.UserId
+                join t in dbContext.Tutorials on tl.TutorialId equals t.Id
+                where tl.UserId == userId
+                select new
+                {
+                    tutorialId = tl.Id,
+                    tutorialTitle = tl.Title,
+                    tutorialColor = t.Color,
+                };
+            // Check if the fetched object is null and throw an exception, caused if the user id is not found in the database
+            if (fetchedTutorialData == null)
+            {
+                throw new NotFoundException();
+            }
+
+            // Append to each tutorial from the fetchedTutorialData object the number of steps.
+            foreach (var tutorial in fetchedTutorialData)
+            {
+                var numberOfSteps = CountNumberOfSteps(tutorial.tutorialId);
+                tutorialToReturn.Add(new
+                {
+                    tutorial.tutorialId,
+                    tutorial.tutorialTitle,
+                    tutorial.tutorialColor,
+                    numberOfSteps
+                });
+            }
+
+            return tutorialToReturn;
+        }
+
+        private int CountNumberOfSteps(int tutorialId)
+        {
+            return
+                (from s in dbContext.Steps
+                    where s.TutorialId == tutorialId
+                    select s).Count();
         }
     }
 }
