@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 using insulin_backend.Database;
 using insulin_backend.Database.Models;
 using insulin_backend.Services.Exceptions;
+using insulin_backend.Services.UserService;
 
-namespace insulin_backend.Services.User
+namespace insulin_backend.Services.UserService
 {
     public class UserService : IUserService
     {
@@ -23,7 +24,11 @@ namespace insulin_backend.Services.User
         {
             // final object that must be returned 
             ArrayList tutorialToReturn = new ArrayList();
-
+            var fetchedUser=GetUserByUserId(userId);
+            if (fetchedUser == null)
+            {
+                throw new NotFoundException("User not found");
+            }
             // Join three tables: Users, TutorialLanguages, Tutorials 
             var fetchedTutorialData =
                 from u in dbContext.Users
@@ -32,30 +37,32 @@ namespace insulin_backend.Services.User
                 where tl.UserId == userId
                 select new
                 {
-                    tutorialId = tl.Id,
-                    tutorialTitle = tl.Title,
-                    tutorialColor = t.Color,
+                    id = tl.Id,
+                    title = tl.Title,
+                    color = t.Color,
+                    language=tl.Language.Name
                 };
-            // Check if the fetched object is null and throw an exception, caused if the user id is not found in the database
-            if (fetchedTutorialData == null)
-            {
-                throw new NotFoundException();
-            }
-
+            
             // Append to each tutorial from the fetchedTutorialData object the number of steps.
             foreach (var tutorial in fetchedTutorialData)
             {
-                var numberOfSteps = CountNumberOfSteps(tutorial.tutorialId);
+                var amountOfSteps = CountNumberOfSteps(tutorial.id);
                 tutorialToReturn.Add(new
                 {
-                    tutorial.tutorialId,
-                    tutorial.tutorialTitle,
-                    tutorial.tutorialColor,
-                    numberOfSteps
+                    tutorial.id,
+                    tutorial.title,
+                    tutorial.color,
+                    amountOfSteps,
+                    tutorial.language
                 });
             }
 
             return tutorialToReturn;
+        }
+
+        private User GetUserByUserId( int userId)
+        {
+            return dbContext.Users.FirstOrDefault(u=>u.Id==userId);
         }
 
         private int CountNumberOfSteps(int tutorialId)
