@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace insulin_backend.Database.Models
 {
@@ -19,7 +20,7 @@ namespace insulin_backend.Database.Models
         public string Title { get; set; }
         
         public int UserId { get; set; }
-        [ForeignKey("UserId")]
+        [ForeignKey("UserId"), JsonIgnoreAttribute]
         public User User { get; set; }
     }
 }
