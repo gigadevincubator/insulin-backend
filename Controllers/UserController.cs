@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using insulin_backend.Database.Models;
 using insulin_backend.Services.Exceptions;
-using insulin_backend.Services.User;
+using insulin_backend.Services.UserService;
 using Microsoft.AspNetCore.Mvc;
 
 namespace insulin_backend.Controllers
@@ -32,7 +32,7 @@ namespace insulin_backend.Controllers
             catch (NotFoundException e)
             {
                 Console.WriteLine(e);
-                return NotFound();
+                return BadRequest(e.Message);
             }
         }
     }
