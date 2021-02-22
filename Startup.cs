@@ -2,7 +2,7 @@ using insulin_backend.Database;
 using insulin_backend.Database.Repository;
 using insulin_backend.Database.Repository.Extended;
 using insulin_backend.Services;
-using insulin_backend.Services.User;
+using insulin_backend.Services.UserService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
