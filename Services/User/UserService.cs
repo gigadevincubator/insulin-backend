@@ -10,27 +10,34 @@ namespace insulin_backend.Services.User
 {
     public class UserService : IUserService
     {
-        private DataContext dbContext { get; set; }
+        private DataContext dbContext;
 
         public UserService(DataContext dbContext)
         {
             this.dbContext = dbContext;
         }
 
-        public IList<TutorialLanguage> GetAllUsersTutorials(int userId)
+//todo this can be optimized using only one query or using LINQ include statement 
+        public async Task<Database.Models.User> GetAllUsersTutorials(int userId)
         {
-            // IList<TutorialLanguage> tutorials =
-            //     dbContext.Users.First(u => u.Id == userId).Tutorials.ToList();
-
-            IList<TutorialLanguage> tutorials =
-                dbContext.Users.Where(u => u.Id == userId).SelectMany(u => u.Tutorials).Include(t => t.Tutorial)
-                    .Include(u => u.User).ToList();
-            if (!tutorials.Any())
+// Find the user based on the user ID
+            var user = await dbContext.Users.FindAsync(userId);
+            if (user == null)
             {
                 throw new NotFoundException();
             }
 
-            return tutorials;
+// Load All related child entities of the user
+            await dbContext.Entry(user).Collection(p => p.Tutorials).LoadAsync();
+            foreach (var tutorial in user.Tutorials)
+            {
+                await dbContext.Entry(tutorial).Reference(p => p.Tutorial).LoadAsync();
+                await dbContext.Entry(tutorial).Reference(p => p.Language).LoadAsync();
+            }
+          
+
+// Since there is only one possible entry for the user list, I will return the user on first position 
+            return user;
         }
     }
 }

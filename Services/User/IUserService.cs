@@ -6,6 +6,6 @@ namespace insulin_backend.Services.User
 {
     public interface IUserService
     {
-        IList<TutorialLanguage> GetAllUsersTutorials(int userId);
+        Task<Database.Models.User> GetAllUsersTutorials(int userId);
     }
 }
