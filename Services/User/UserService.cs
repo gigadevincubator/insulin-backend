@@ -34,9 +34,7 @@ namespace insulin_backend.Services.User
                 await dbContext.Entry(tutorial).Reference(p => p.Tutorial).LoadAsync();
                 await dbContext.Entry(tutorial).Reference(p => p.Language).LoadAsync();
             }
-          
-
-// Since there is only one possible entry for the user list, I will return the user on first position 
+            
             return user;
         }
     }
