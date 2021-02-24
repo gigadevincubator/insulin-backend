@@ -26,6 +26,7 @@ namespace insulin_backend.Database
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Data Source = Insulin.db");
+            optionsBuilder.EnableSensitiveDataLogging();
         }
 
 
