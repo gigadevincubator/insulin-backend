@@ -1,5 +1,6 @@
 
 using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using insulin_backend.Database;
@@ -48,6 +49,17 @@ namespace insulin_backend.Services
             {
                 throw new NotFoundException();
             }
+        }
+
+        public async Task<int> DeleteStepOfTutorial(int tutorialId, string language)
+        {
+            var tutorialToDelete = await dbContext.Tutorials.FirstOrDefaultAsync(t => t.Id == tutorialId);
+            if (tutorialToDelete != null)
+            {
+                dbContext.Tutorials.Remove(tutorialToDelete);
+                await dbContext.SaveChangesAsync();
+            }
+            throw new NotFoundException();
         }
     }
 }

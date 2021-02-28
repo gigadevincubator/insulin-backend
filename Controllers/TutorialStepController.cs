@@ -33,5 +33,20 @@ namespace insulin_backend.Controllers
                 return NotFound();
             }
         }
+
+        [HttpDelete]
+        [Route("DELETE tutorials/{tutorialId}/delete")]
+        public ActionResult<int> DeleteTutorial([FromRoute] int tutorialId, [FromQuery] string language)
+        {
+            try
+            {
+                return Ok(_tutorialStepService.DeleteStepOfTutorial(tutorialId,language));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+           
+        }
     }
 }
