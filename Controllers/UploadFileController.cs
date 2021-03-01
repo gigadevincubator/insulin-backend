@@ -47,7 +47,7 @@ namespace insulin_backend.Controllers
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                return NotFound();
+                return BadRequest();
             }
         }
     }
