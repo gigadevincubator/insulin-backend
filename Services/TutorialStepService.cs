@@ -51,15 +51,13 @@ namespace insulin_backend.Services
             }
         }
 
-        public async Task<int> DeleteStepOfTutorial(int tutorialId, string language)
+        public async Task<int> DeleteTutorialOfCertainLanguage(int tutorialId, string language)
         {
-            var tutorialToDelete = await dbContext.Tutorials.FirstOrDefaultAsync(t => t.Id == tutorialId);
-            if (tutorialToDelete != null)
-            {
-                dbContext.Tutorials.Remove(tutorialToDelete);
-                await dbContext.SaveChangesAsync();
-            }
-            throw new NotFoundException();
+            var tutorialToDelete = await dbContext.TutorialLanguages.FirstOrDefaultAsync(t => t.TutorialId == tutorialId && t.Language.Name.Equals(language));
+            if (tutorialToDelete == null) throw new NotFoundException();
+            dbContext.TutorialLanguages.Remove(tutorialToDelete);
+            await dbContext.SaveChangesAsync();
+            return tutorialToDelete.TutorialId;
         }
     }
 }

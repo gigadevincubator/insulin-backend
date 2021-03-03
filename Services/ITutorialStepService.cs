@@ -7,6 +7,6 @@ namespace insulin_backend.Services
     public interface ITutorialStepService
     {
         public StepLanguage GetStepLanguage(int tutorialId, int stepNr, int languageId);
-        public Task<int> DeleteStepOfTutorial(int tutorialId, string language);
+        public Task<int> DeleteTutorialOfCertainLanguage(int tutorialId, string language);
     }
 }

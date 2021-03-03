@@ -35,12 +35,13 @@ namespace insulin_backend.Controllers
         }
 
         [HttpDelete]
-        [Route("DELETE tutorials/{tutorialId}/delete")]
-        public ActionResult<int> DeleteTutorial([FromRoute] int tutorialId, [FromQuery] string language)
+        [Route("tutorials/{tutorialId}/delete")]
+        public async Task<ActionResult<int>> DeleteTutorial([FromRoute] int tutorialId, [FromQuery] string language)
         {
             try
             {
-                return Ok(_tutorialStepService.DeleteStepOfTutorial(tutorialId,language));
+                var idOfDeletedItem = await _tutorialStepService.DeleteTutorialOfCertainLanguage(tutorialId, language);
+                return Ok(idOfDeletedItem);
             }
             catch (Exception e)
             {
