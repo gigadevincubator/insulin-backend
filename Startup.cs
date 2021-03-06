@@ -2,6 +2,7 @@ using insulin_backend.Database;
 using insulin_backend.Database.Repository;
 using insulin_backend.Database.Repository.Extended;
 using insulin_backend.Services;
+using insulin_backend.Services.TutroialByTitle;
 using insulin_backend.Services.UserService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,8 +28,8 @@ namespace insulin_backend
             services.AddDbContext<DataContext>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<ITutorialStepService, TutorialStepService>();
+            services.AddScoped<ITutorialLanguageSerive, TutorialLanguageService>();
             services.AddScoped<IUserService, UserService>();
-            
             services.AddControllers();
         }
 
