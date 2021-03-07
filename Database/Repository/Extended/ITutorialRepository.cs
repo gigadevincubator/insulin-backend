@@ -4,6 +4,6 @@ namespace insulin_backend.Database.Repository.Extended
 {
     public interface ITutorialRepository : IRepository<Tutorial>
     {
-        
+        Tutorial CreateTutorial(Tutorial tutorial);
     }
 }
