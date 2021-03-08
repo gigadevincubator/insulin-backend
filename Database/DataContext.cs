@@ -48,16 +48,16 @@ namespace insulin_backend.Database
             modelBuilder.Entity<TutorialLanguage>().HasData(new TutorialLanguage()
                 {Id = 1, LanguageId = 1, Title = "How to survive",TutorialId = 1, UserId = 1});
             
-            modelBuilder.Entity<Step>().HasData(new Step() {Id = 1, StepNumber = 1, TutorialId = 1, Video = "vid"});
-            modelBuilder.Entity<Step>().HasData(new Step() {Id = 2, StepNumber = 2, TutorialId = 1, Video = "vid"});
-            modelBuilder.Entity<Step>().HasData(new Step() {Id = 3, StepNumber = 3, TutorialId = 1, Video = "vid"});
+            modelBuilder.Entity<Step>().HasData(new Step() {Id = 1, StepNumber = 1, TutorialId = 1, VideoUrl = "vid"});
+            modelBuilder.Entity<Step>().HasData(new Step() {Id = 2, StepNumber = 2, TutorialId = 1, VideoUrl = "vid"});
+            modelBuilder.Entity<Step>().HasData(new Step() {Id = 3, StepNumber = 3, TutorialId = 1, VideoUrl = "vid"});
 
             modelBuilder.Entity<StepLanguage>().HasData(new StepLanguage()
-                {Id = 1,  StepId = 1, Text = "Sleep at least 8 hours a day", TutorialLanguageId = 1, Title = "Sleep well", Audio = "aud"});
+                {Id = 1,  StepId = 1, Text = "Sleep at least 8 hours a day", TutorialLanguageId = 1, Title = "Sleep well", AudioUrl = "aud"});
             modelBuilder.Entity<StepLanguage>().HasData(new StepLanguage()
-                {Id = 2, StepId = 2, Text = "Drink 2 liters of water daily", TutorialLanguageId = 1, Title = "Drink water", Audio = "aud"});
+                {Id = 2, StepId = 2, Text = "Drink 2 liters of water daily", TutorialLanguageId = 1, Title = "Drink water", AudioUrl = "aud"});
             modelBuilder.Entity<StepLanguage>().HasData(new StepLanguage()
-                {Id = 3, StepId = 3, Text = "Eat healthy food 3 times a day", TutorialLanguageId = 1, Title = "Eat healthy", Audio = "aud"});
+                {Id = 3, StepId = 3, Text = "Eat healthy food 3 times a day", TutorialLanguageId = 1, Title = "Eat healthy", AudioUrl = "aud"});
         }
 
     }
