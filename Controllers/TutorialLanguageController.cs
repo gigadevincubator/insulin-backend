@@ -13,11 +13,11 @@ namespace insulin_backend.Controllers
         [ApiController]
         public class TutorialLanguageController : ControllerBase
         {
-            private ITutorialLanguageSerive tutorialLanguageSerive;
+            private ITutorialLanguageService _tutorialLanguageService;
 
-            public TutorialLanguageController(ITutorialLanguageSerive tutorialLanguageSerive)
+            public TutorialLanguageController(ITutorialLanguageService tutorialLanguageService)
             {
-                this.tutorialLanguageSerive = tutorialLanguageSerive;
+                this._tutorialLanguageService = tutorialLanguageService;
             }
 
             [HttpGet]
@@ -26,7 +26,7 @@ namespace insulin_backend.Controllers
             {
                 try
                 {
-                    Object res = tutorialLanguageSerive.GetTutorialLanguageByTitle(title,languageId);
+                    Object res = _tutorialLanguageService.GetTutorialLanguageByTitle(title,languageId);
                     return Ok(res);
                 }
                 catch (NotFoundException)
