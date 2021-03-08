@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using insulin_backend.Database.Models;
 using insulin_backend.Services.Exceptions;
-using insulin_backend.Services.TutroialByTitle;
+using insulin_backend.Services.TutorialLanguageService;
 using Microsoft.AspNetCore.Mvc;
 
 namespace insulin_backend.Controllers
