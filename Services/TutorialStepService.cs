@@ -39,7 +39,7 @@ namespace insulin_backend.Services
                             Title = sl.Title,
                             StepId = sl.StepId,
                             Text = sl.Text,
-                            Audio = sl.Audio,
+                            AudioUrl = sl.AudioUrl,
                             TutorialLanguageId = sl.TutorialLanguageId
                         }).First();
                 return step;
