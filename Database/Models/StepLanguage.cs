@@ -23,6 +23,6 @@ namespace insulin_backend.Database.Models
         [Required]
         public string Text { get; set; }
         [Required]
-        public string Audio { get; set; }
+        public string AudioUrl { get; set; }
     }
 }
