@@ -17,6 +17,9 @@ namespace insulin_backend.Controllers
     public class UploadFileController : ControllerBase
     {
         private readonly IAzureBlobService _azureBlobService;
+        private const string TutorialThumbnail = "TutorialThumbnail";
+        private const string StepVideo = "StepVideo";
+        private const string StepLanguageAudio = "StepLanguageAudio";
 
         public UploadFileController(IAzureBlobService azureBlobService)
         {
@@ -24,8 +27,26 @@ namespace insulin_backend.Controllers
         }
 
 
-        [HttpPost]
-        public async Task<ActionResult> UploadAsync()
+        [HttpPost("tutorialThumbnail/{tutorialId}")]
+        //todo check if tutorial exists
+        public async Task<ActionResult> UploadTutorialThumbnailAsync([FromRoute] int tutorialId)
+        {
+            return await UploadFileAsync(TutorialThumbnail,tutorialId);
+        }
+
+        [HttpPost("stepVideo/{stepId}")]
+        public async Task<ActionResult> UploadStepVideoAsync([FromRoute] int stepId)
+        {
+            return await UploadFileAsync(StepVideo,stepId);
+        }
+
+        [HttpPost("stepLanguageAudio/{stepLanguageId}")]
+        public async Task<ActionResult> UploadStepLanguageAudioAsync([FromRoute] int stepLanguageId)
+        {
+            return await UploadFileAsync(StepLanguageAudio,stepLanguageId);
+        }
+
+        private async Task<ActionResult> UploadFileAsync(string objectToUpload,int objectId)
         {
             try
             {
@@ -41,7 +62,16 @@ namespace insulin_backend.Controllers
                     return BadRequest("Could not upload empty files");
                 }
 
-                await _azureBlobService.UploadAsync(files);
+                switch (objectToUpload)
+                {
+                    case StepVideo:  await _azureBlobService.UploadStepVideoAsync(files, objectId);
+                    break;    
+                    case StepLanguageAudio: await _azureBlobService.UploadStepLanguageAudioAsync(files, objectId);
+                    break;
+                    case TutorialThumbnail:await _azureBlobService.UploadTutorialThumbnailAsync(files, objectId);
+                    break;
+                }
+          
                 return Ok();
             }
             catch (Exception ex)
