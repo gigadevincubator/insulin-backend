@@ -8,7 +8,11 @@ namespace insulin_backend.Services.AzureService
 {
     public interface IAzureBlobService
     {
-        Task UploadAsync(IFormFileCollection files);
+        
 
+        Task UploadStepVideoAsync(IFormFileCollection files, int stepVideoId);
+        Task UploadStepLanguageAudioAsync(IFormFileCollection files, int objectId);
+        Task UploadTutorialThumbnailAsync(IFormFileCollection files, int tutorialThumbnailId
+        );
     }
 }
