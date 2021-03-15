@@ -1,5 +1,6 @@
 
 using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using insulin_backend.Database;
@@ -39,7 +40,7 @@ namespace insulin_backend.Services
                             Title = sl.Title,
                             StepId = sl.StepId,
                             Text = sl.Text,
-                            Audio = sl.Audio,
+                            AudioUrl = sl.AudioUrl,
                             TutorialLanguageId = sl.TutorialLanguageId
                         }).First();
                 return step;
@@ -48,6 +49,27 @@ namespace insulin_backend.Services
             {
                 throw new NotFoundException();
             }
+        }
+        public StepLanguage FindStepLanguageById(int stepLanguageId)
+        {
+            var stepLanguage =  dbContext.StepLanguage.FirstOrDefault(item => item.Id == stepLanguageId);
+            if (stepLanguage == null)
+            {
+                throw new Exception("Step Language not found");
+            }
+
+            return stepLanguage;
+        }
+
+        public Step FindStepById(int stepId)
+        {
+            var step =  dbContext.Steps.FirstOrDefault(item => item.Id == stepId);
+            if (step == null)
+            {
+                throw new Exception("Step  not found");
+            }
+
+            return step;
         }
     }
 }
