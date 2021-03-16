@@ -16,11 +16,16 @@ namespace insulin_backend.Database.Repository
             Tutorials = new TutorialRepository(_context);
             Users = new UserRepository(_context);
             Languages = new LanguageRepository(_context);
+            TutorialSteps = new TutorialStepRepository(_context);
+            Steps = new StepRepository(_context);
         }
         
         public ITutorialRepository Tutorials { get; }
         public IUserRepository Users { get; }
         public ILanguageRepository Languages { get; }
+        public ITutorialStepRepository TutorialSteps { get; }
+
+        public IStepRepository Steps { get; }
 
         public int Complete()
         {

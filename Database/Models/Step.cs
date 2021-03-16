@@ -14,6 +14,12 @@ namespace insulin_backend.Database.Models
         [Required]
         public string Video { get; set; }
         [Required]
+        public string Audio { get; set; }
+        [Required]
+        public string Text { get; set; }
+        [Required]
+        public string Title { get; set; }
+        [Required]
         public int StepNumber { get; set; }
     }
 }

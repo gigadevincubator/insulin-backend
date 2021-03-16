@@ -8,6 +8,7 @@ namespace insulin_backend.Database.Repository
         ITutorialRepository Tutorials { get; }
         IUserRepository Users { get;  }
         ILanguageRepository Languages { get; }
+        IStepRepository Steps { get; }
         int Complete();
     }
 }
