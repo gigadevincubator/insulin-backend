@@ -33,5 +33,19 @@ namespace insulin_backend.Controllers
                 return NotFound();
             }
         }
+        [HttpDelete]
+        [Route("tutorials/{tutorialId}/steps/{stepId}/{languageId}")]
+        public ActionResult<Task> DelegateTutorialStep([FromRoute] int tutorialId,[FromRoute] int stepId, [FromRoute] int languageId)
+        {
+            try
+            {
+                 _tutorialStepService.DeleteTutorialStepAsync(tutorialId,stepId,languageId);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
     }
 }
