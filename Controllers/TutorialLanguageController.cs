@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using insulin_backend.Database.Models;
 using insulin_backend.Services.Exceptions;
 using insulin_backend.Services.TutorialLanguageService;
+using insulin_backend.Services.TutorialService;
 using Microsoft.AspNetCore.Mvc;
 
 namespace insulin_backend.Controllers
@@ -14,8 +15,9 @@ namespace insulin_backend.Controllers
         public class TutorialLanguageController : ControllerBase
         {
             private ITutorialLanguageService _tutorialLanguageService;
+        private ITutorialService tutorialService;
 
-            public TutorialLanguageController(ITutorialLanguageService tutorialLanguageService)
+        public TutorialLanguageController(ITutorialLanguageService tutorialLanguageService)
             {
                 this._tutorialLanguageService = tutorialLanguageService;
             }
@@ -34,6 +36,21 @@ namespace insulin_backend.Controllers
                     return NotFound();
                 }
             }
+
+        [HttpPut]
+        [Route("tutorials/{tutorial_id:int}/languages/{language_id:int}/edit")]
+        public ActionResult<Object> UpdateTutorial([FromBody] string jsonData, int tutorial_id, int language_id)
+        {
+            try
+            {
+                Object res = tutorialService.UpdateTutorial(jsonData ,tutorial_id,language_id);
+                return Ok(res);
+            }
+            catch (NotFoundException)
+            {
+                return NotFound();
+            }
         }
+    }
     }
 
