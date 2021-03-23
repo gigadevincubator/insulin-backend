@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using insulin_backend.Database;
 using insulin_backend.Database.Models;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using insulin_backend.Services.Exceptions;
 
 namespace insulin_backend.Services.TutorialService
 {
@@ -24,6 +26,33 @@ namespace insulin_backend.Services.TutorialService
             }
 
             return tutorial;
+        }
+
+        public async Task<Tutorial> UpdateTutorial(string jsonData, int tutorialId, int languageId)
+        {
+            try {
+                var jsonTutorial = JsonConvert.DeserializeObject<Tutorial>(jsonData);
+                var jsonTutorialLanguage = JsonConvert.DeserializeObject<TutorialLanguage>(jsonData);
+
+                Tutorial toUpdateTutorial = await dbContext.Tutorials.FirstAsync(t => t.Id == tutorialId);
+                TutorialLanguage toUpdateTutorialLanguage = await dbContext.TutorialLanguages.FirstAsync(tl => tl.TutorialId == tutorialId && tl.LanguageId == languageId);
+
+
+                toUpdateTutorial.isPublished = jsonTutorial.isPublished;
+                toUpdateTutorial.ThumbnailUrl = jsonTutorial.ThumbnailUrl;
+                toUpdateTutorialLanguage.Title = jsonTutorialLanguage.Title;
+                dbContext.Update(toUpdateTutorial);
+                dbContext.Update(toUpdateTutorialLanguage);
+                await dbContext.SaveChangesAsync();
+                return toUpdateTutorial;
+            }
+            catch (InvalidOperationException e)
+            {
+                throw new NotFoundException();
+            }
+
+
+
         }
     }
 }
