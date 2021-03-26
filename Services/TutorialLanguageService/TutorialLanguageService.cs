@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using insulin_backend.Database;
 using insulin_backend.Database.Models;
 using insulin_backend.Services.Exceptions;
 
-namespace insulin_backend.Services.TutroialByTitle
+namespace insulin_backend.Services.TutorialLanguageService
 {
-    public class TutorialLanguageService : ITutorialLanguageSerive
+    public class TutorialLanguageService : ITutorialLanguageService
     {
         private DataContext dbContext { get; set; }
 
@@ -40,5 +40,7 @@ namespace insulin_backend.Services.TutroialByTitle
                 throw new NotFoundException();
             }
         }
+
+     
     }
 }

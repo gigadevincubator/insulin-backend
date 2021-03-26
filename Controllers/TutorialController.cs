@@ -1,4 +1,5 @@
-﻿using insulin_backend.Database.Models;
+﻿using insulin_backend.Services.TutorialService;
+using insulin_backend.Database.Models;
 using insulin_backend.Database.Repository;
 using insulin_backend.Services.Exceptions;
 using Microsoft.AspNetCore.Mvc;
