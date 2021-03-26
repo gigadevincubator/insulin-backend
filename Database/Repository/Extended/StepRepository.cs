@@ -3,26 +3,26 @@ using insulin_backend.Database.Models;
 
 namespace insulin_backend.Database.Repository.Extended
 {
-    public class TutorialRepository : Repository<Tutorial>, ITutorialRepository
+    public class StepRepository : Repository<Step>, IStepRepository
     {
         private readonly DataContext _dataContext;
-        public TutorialRepository(DataContext context) : base(context)
+        public StepRepository(DataContext context) : base(context)
         {
             _dataContext = context;
         }
 
-        public Tutorial CreateTutorial(Tutorial tutorial)
+        public Step CreateStep(Step step)
         {
             try
             {
-               _dataContext.Tutorials.Add(tutorial);
+                _dataContext.Steps.Add(step);
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
             }
 
-            return tutorial;
+            return step;
         }
 
         public DataContext DataContext

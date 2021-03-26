@@ -43,7 +43,7 @@ namespace insulin_backend.Database
             
             modelBuilder.Entity<User>().HasData(new User(){Id = 1, LanguageId = 1, FirstName = "Dan", LastName = "Mosk", Sex = "Hopefully Today", DateOfBirth = new DateTime(1999, 06, 22), HashedPassword = "bpxgsd2J3", });
 
-            modelBuilder.Entity<Tutorial>().HasData(new Tutorial(){Color = "#FF0000", Id = 1});
+            modelBuilder.Entity<Tutorial>().HasData(new Tutorial(){Color = "#FF0000", Id = 1, Thumbnail = "BIG"});
             
             modelBuilder.Entity<TutorialLanguage>().HasData(new TutorialLanguage()
                 {Id = 1, LanguageId = 1, Title = "How to survive",TutorialId = 1, UserId = 1});

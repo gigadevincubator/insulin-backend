@@ -1,7 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using insulin_backend.Database.Models;
+using insulin_backend.Database.Repository;
 using insulin_backend.Services;
 using insulin_backend.Services.Exceptions;
 using Microsoft.AspNetCore.Mvc;

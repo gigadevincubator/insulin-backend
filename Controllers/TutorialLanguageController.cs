@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using insulin_backend.Database.Models;
 using insulin_backend.Services.Exceptions;
 using insulin_backend.Services.TutorialLanguageService;
