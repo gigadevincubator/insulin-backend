@@ -1,9 +1,10 @@
-﻿using insulin_backend.Database.Models;
+﻿using System.Threading.Tasks;
+using insulin_backend.Database.Models;
 
 namespace insulin_backend.Database.Repository.Extended
 {
     public interface ITutorialStepRepository
     {
-        Step CreateStep(Step step);
+        Task DeleteTutorialStepAsync(int tutorialId, int stepId, int languageId);
     }
 }

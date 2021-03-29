@@ -9,6 +9,9 @@ namespace insulin_backend.Database.Repository
         IUserRepository Users { get;  }
         ILanguageRepository Languages { get; }
         IStepRepository Steps { get; }
+        ITutorialLanguageRepository TutorialLanguages { get; }
+        IStepLanguageRepository StepLanguages { get; }
+        ITutorialStepRepository TutorialSteps { get; }
         int Complete();
     }
 }
