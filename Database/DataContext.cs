@@ -12,8 +12,6 @@ namespace insulin_backend.Database
     public class DataContext : DbContext
     {
         public DbSet<Tutorial> Tutorials { get; set; }
-        
-        public DbSet<Language> Languages { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Step> Steps { get; set; }
         public DbSet<StepLanguage> StepLanguage { get; set; }
