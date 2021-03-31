@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Entity.Core.Metadata.Edm;
+using System.Linq;
 using System.Threading.Tasks;
 using insulin_backend.Database.Models;
 using insulin_backend.Services.Exceptions;
@@ -19,7 +20,26 @@ namespace insulin_backend.Database.Repository.Extended
 
         public Object GetTutorialLanguageByTitle(string title, int languageId)
         {
-            return null;
+            try
+            {
+                var tutorial =
+                    from tl in _dataContext.TutorialLanguages
+                    join t in _dataContext.Tutorials on tl.TutorialId equals t.Id
+                    join s in _dataContext.Steps on t.Id equals s.TutorialId
+                    where tl.Title.ToLower().Contains(title.ToLower()) && tl.LanguageId == languageId
+                    select new
+                    {
+                        TutorialId = t.Id,
+                        Title = tl.Title,
+                        Color = t.Color,
+                        TutorialLanguage = tl.Language.Name,
+                    };
+                return tutorial;
+            }
+            catch (InvalidOperationException e)
+            {
+                throw new NotFoundException();
+            }
         }
         
         public async Task<Tutorial> UpdateTutorial(string jsonData, int tutorialId, int languageId)
