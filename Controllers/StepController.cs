@@ -30,6 +30,7 @@ namespace insulin_backend.Controllers
                     Title = stepObj.Title,
                     Text = stepObj.Text
                 });
+                _unitOfWork.Complete();
                 return Ok(step);
             }
             catch (NotFoundException)
