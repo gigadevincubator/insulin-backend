@@ -19,7 +19,7 @@ namespace insulin_backend.Controllers
 
         [HttpGet]
         [Route("tutorials")]
-        public ActionResult<TutorialLanguage> GetStep([FromQuery] string title, [FromQuery] int languageId)
+        public ActionResult<TutorialLanguage> GetTutorials([FromQuery] string title, [FromQuery] int languageId)
         {
             try
             {
@@ -31,6 +31,7 @@ namespace insulin_backend.Controllers
                     return NotFound();
             }
         }
+        
 
         [HttpPut]
         [Route("tutorials/{tutorial_id:int}/languages/{language_id:int}/edit")]
