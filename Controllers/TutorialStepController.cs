@@ -18,7 +18,7 @@ namespace insulin_backend.Controllers
         }
 
         [HttpGet]
-        [Route("tutorials/{tutorialId}/steps/{stepNr}")]
+        [Route("tutorials/{TutorialId}/steps/{stepNr}")]
         public ActionResult<Step> GetStep([FromRoute] int tutorialId, [FromRoute] int stepNr,
             [FromQuery] int languageId)
         {
@@ -33,7 +33,7 @@ namespace insulin_backend.Controllers
             }
         }
         [HttpDelete]
-        [Route("tutorials/{tutorialId}/steps/{stepId}/{languageId}")]
+        [Route("tutorials/{TutorialId}/steps/{stepId}/{languageId}")]
         public ActionResult<Task> DelegateTutorialStep([FromRoute] int tutorialId,[FromRoute] int stepId, [FromRoute] int languageId)
         {
             try
@@ -48,7 +48,7 @@ namespace insulin_backend.Controllers
         }
         
         [HttpPost]
-        [Route("tutorials/{tutorialId}/steps/{stepNr}/create")]
+        [Route("tutorials/{TutorialId}/steps/{stepNr}/create")]
         public ActionResult<Step> CreateTutorialStep([FromRoute] int tutorialId, [FromRoute] int stepNr, [FromBody] Step stepObj)
         {
             try

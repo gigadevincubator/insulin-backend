@@ -19,7 +19,7 @@ namespace insulin_backend.Database.Repository.Extended
             /*
              select * from StepLanguage sl join step s on sl.step_id = s.id
              join TutorialLanguage tl on sl.tutorial_language_id = tl.id
-             where tl.tutorial_id = #{tutorialId} and tl.languageId = #{languageId} and s.tutorial_id = #{tutorialId} and s.stepNr = #{stepNr}
+             where tl.tutorial_id = #{TutorialId} and tl.languageId = #{languageId} and s.tutorial_id = #{TutorialId} and s.stepNr = #{stepNr}
              */
             try
             {

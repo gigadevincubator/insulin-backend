@@ -16,7 +16,7 @@ namespace insulin_backend.Controllers
         }
         
         [HttpPost]
-        [Route("tutorials/{tutorialId}/steps/{stepNr}/create")]
+        [Route("tutorials/{TutorialId}/steps/{stepNr}/create")]
         public ActionResult<Step> CreateTutorialStep([FromRoute] int tutorialId, [FromRoute] int stepNr, [FromBody] Step stepObj)
         {
             try

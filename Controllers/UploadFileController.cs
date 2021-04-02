@@ -24,7 +24,7 @@ namespace insulin_backend.Controllers
         }
 
 
-        [HttpPost("tutorialThumbnail/{tutorialId}")]
+        [HttpPost("tutorialThumbnail/{TutorialId}")]
         public async Task<ActionResult> UploadTutorialThumbnailAsync([FromRoute] int tutorialId)
         {
             try

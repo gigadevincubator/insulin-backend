@@ -11,15 +11,13 @@ namespace insulin_backend.Database.Models
         public int TutorialId { get; set; }
         [ForeignKey("TutorialId")]
         public Tutorial Tutorial { get; set; }
-        [Required]
         public string VideoUrl { get; set; }
-        [Required]
+   
         public string Audio { get; set; }
-        [Required]
+      
         public string Text { get; set; }
-        [Required]
+        
         public string Title { get; set; }
-        [Required]
         public int StepNumber { get; set; }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Data.Entity.Core.Metadata.Edm;
 using System.Linq;
 using System.Threading.Tasks;
@@ -23,15 +25,12 @@ namespace insulin_backend.Database.Repository.Extended
             try
             {
                 var tutorial =
-                    from tl in _dataContext.TutorialLanguages
-                    join t in _dataContext.Tutorials on tl.TutorialId equals t.Id
-                    join s in _dataContext.Steps on t.Id equals s.TutorialId
+                    from tl in  _dataContext.TutorialLanguages
                     where tl.Title.ToLower().Contains(title.ToLower()) && tl.LanguageId == languageId
                     select new
                     {
-                        TutorialId = t.Id,
+                        TutorialId = tl.TutorialId,
                         Title = tl.Title,
-                        Color = t.Color,
                         TutorialLanguage = tl.Language.Name,
                     };
                 return tutorial;

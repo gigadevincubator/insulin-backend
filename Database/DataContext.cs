@@ -45,8 +45,12 @@ namespace insulin_backend.Database
 
             modelBuilder.Entity<Tutorial>().HasData(new Tutorial(){Color = "#FF0000", Id = 1, ThumbnailUrl = "BIG"});
             
-            modelBuilder.Entity<TutorialLanguage>().HasData(new TutorialLanguage()
-                {Id = 1, LanguageId = 1, Title = "How to survive",TutorialId = 1, UserId = 1});
+            modelBuilder.Entity<TutorialLanguage>().HasData(
+                new TutorialLanguage() {Id = 1, LanguageId = 1, Title = "How to survive",
+                    TutorialId = 1, UserId = 1},
+                new TutorialLanguage() 
+                {Id = 2, LanguageId = 2, Title = "How to live with Rafael?",TutorialId = 1, UserId = 1});
+           
             
             modelBuilder.Entity<Step>().HasData(new Step() {Id = 1, StepNumber = 1, TutorialId = 1, VideoUrl = "vid"});
             modelBuilder.Entity<Step>().HasData(new Step() {Id = 2, StepNumber = 2, TutorialId = 1, VideoUrl = "vid"});
