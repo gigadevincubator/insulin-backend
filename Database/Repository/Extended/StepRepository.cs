@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using insulin_backend.Database.Models;
 
 namespace insulin_backend.Database.Repository.Extended
@@ -20,6 +21,17 @@ namespace insulin_backend.Database.Repository.Extended
             catch (Exception e)
             {
                 Console.WriteLine(e);
+            }
+
+            return step;
+        }
+        
+        public Step FindStepById(int stepId)
+        {
+            var step = _dataContext.Steps.FirstOrDefault(item => item.Id == stepId);
+            if (step == null)
+            {
+                throw new Exception("Step  not found");
             }
 
             return step;

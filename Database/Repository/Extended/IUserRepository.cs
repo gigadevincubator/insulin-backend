@@ -1,9 +1,10 @@
-﻿using insulin_backend.Database.Models;
+﻿using System;
+using insulin_backend.Database.Models;
 
 namespace insulin_backend.Database.Repository.Extended
 {
     public interface IUserRepository : IRepository<User>
     {
-        
+        Object GetAllUsersTutorials(int userId);
     }
 }

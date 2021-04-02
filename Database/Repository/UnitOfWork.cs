@@ -5,26 +5,23 @@ namespace insulin_backend.Database.Repository
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly DataContext _context;
-
-        public UnitOfWork()
-        {}
+        private DataContext _context;
 
         public UnitOfWork(DataContext context)
         {
             _context = context;
             Tutorials = new TutorialRepository(_context);
             Users = new UserRepository(_context);
-            Languages = new LanguageRepository(_context);
             TutorialSteps = new TutorialStepRepository(_context);
             Steps = new StepRepository(_context);
+            TutorialLanguages = new TutorialLanguageRepository(_context);
+            StepLanguages = new StepLanguageRepository(_context);
         }
-        
+        public ITutorialLanguageRepository TutorialLanguages { get; }
         public ITutorialRepository Tutorials { get; }
         public IUserRepository Users { get; }
-        public ILanguageRepository Languages { get; }
         public ITutorialStepRepository TutorialSteps { get; }
-
+        public IStepLanguageRepository StepLanguages { get; }
         public IStepRepository Steps { get; }
 
         public int Complete()

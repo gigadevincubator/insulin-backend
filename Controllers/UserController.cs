@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
-using insulin_backend.Database.Models;
+using insulin_backend.Database.Repository;
 using insulin_backend.Services.Exceptions;
-using insulin_backend.Services.UserService;
 using Microsoft.AspNetCore.Mvc;
 
 namespace insulin_backend.Controllers
@@ -14,11 +9,11 @@ namespace insulin_backend.Controllers
     [Route("[controller]")]
     public class UserController : ControllerBase
     {
-        private readonly IUserService _userService;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public UserController(IUserService userService)
+        public UserController(IUnitOfWork unitOfWork)
         {
-            _userService = userService;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet("{userId}/tutorials")]
@@ -26,7 +21,7 @@ namespace insulin_backend.Controllers
         {
             try
             {
-                Object tutorials =  _userService.GetAllUsersTutorials(userId);
+                Object tutorials =  _unitOfWork.Users.GetAllUsersTutorials(userId);
                 return Ok(tutorials);
             }
             catch (NotFoundException e)

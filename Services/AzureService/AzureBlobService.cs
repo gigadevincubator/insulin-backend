@@ -19,7 +19,6 @@ namespace insulin_backend.Services.AzureService
             this.dbContext = dbContext;
         }
 
-
         private async Task<string> UploadAsync(IFormFileCollection files)
         {
             string blobUrl = null;
@@ -75,6 +74,7 @@ namespace insulin_backend.Services.AzureService
             // Save changes in database
             dbContext.SaveChanges();
         }
+        
         private void AddStepVideoUrl(string blobUrl, int stepVideoId)
         {
             var entity = dbContext.Steps.FirstOrDefault(item => item.Id == stepVideoId);
@@ -86,6 +86,7 @@ namespace insulin_backend.Services.AzureService
             // Save changes in database
             dbContext.SaveChanges();
         }
+        
         private void AddTutorialThumbnailUrl(string blobUrl, int tutorialId)
         {
             var entity = dbContext.Tutorials.FirstOrDefault(item => item.Id == tutorialId);

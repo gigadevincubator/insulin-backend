@@ -1,38 +1,36 @@
 ﻿using System;
 using insulin_backend.Database.Models;
+using insulin_backend.Database.Repository;
 using insulin_backend.Services.Exceptions;
-using insulin_backend.Services.TutorialLanguageService;
-using insulin_backend.Services.TutorialService;
 using Microsoft.AspNetCore.Mvc;
 
 namespace insulin_backend.Controllers
 {
     
-        [ApiController]
-        public class TutorialLanguageController : ControllerBase
+    [ApiController]
+    public class TutorialLanguageController : ControllerBase
+    {
+        private IUnitOfWork _unitOfWork;
+
+        public TutorialLanguageController(IUnitOfWork unitOfWork)
         {
-            private ITutorialLanguageService _tutorialLanguageService;
-        private ITutorialService tutorialService;
+            _unitOfWork = unitOfWork;
+        }
 
-        public TutorialLanguageController(ITutorialLanguageService tutorialLanguageService)
+        [HttpGet]
+        [Route("tutorials")]
+        public ActionResult<TutorialLanguage> GetStep([FromQuery] string title, [FromQuery] int languageId)
+        {
+            try
             {
-                this._tutorialLanguageService = tutorialLanguageService;
+                Object res = _unitOfWork.TutorialLanguages.GetTutorialLanguageByTitle(title,languageId);
+                return Ok(res);
             }
-
-            [HttpGet]
-            [Route("tutorials")]
-            public ActionResult<TutorialLanguage> GetStep([FromQuery] string title, [FromQuery] int languageId)
-            {
-                try
-                {
-                    Object res = _tutorialLanguageService.GetTutorialLanguageByTitle(title,languageId);
-                    return Ok(res);
-                }
-                catch (NotFoundException)
-                {
+            catch (NotFoundException) 
+            { 
                     return NotFound();
-                }
             }
+        }
 
         [HttpPut]
         [Route("tutorials/{tutorial_id:int}/languages/{language_id:int}/edit")]
@@ -40,7 +38,7 @@ namespace insulin_backend.Controllers
         {
             try
             {
-                Object res = tutorialService.UpdateTutorial(jsonData ,tutorial_id,language_id);
+                Object res = _unitOfWork.TutorialLanguages.UpdateTutorial(jsonData ,tutorial_id,language_id);
                 return Ok(res);
             }
             catch (NotFoundException)

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace insulin_backend.Database.Models
 {
-    public class Step
+    public class Step    
     {
         [Key]
         public int Id { get; set; }

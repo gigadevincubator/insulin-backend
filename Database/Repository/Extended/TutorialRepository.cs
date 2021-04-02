@@ -1,5 +1,10 @@
 ﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 using insulin_backend.Database.Models;
+using insulin_backend.Services.Exceptions;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace insulin_backend.Database.Repository.Extended
 {
@@ -15,11 +20,23 @@ namespace insulin_backend.Database.Repository.Extended
         {
             try
             {
+                Console.WriteLine("Color:" + tutorial.Color + "," + tutorial.ThumbnailUrl + "," + tutorial.isPublished + "," + tutorial.Id);
                _dataContext.Tutorials.Add(tutorial);
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
+            }
+
+            return tutorial;
+        }
+        
+        public Tutorial FindTutorialById(int tutorialId)
+        {
+            var tutorial =  _dataContext.Tutorials.FirstOrDefault(item => item.Id == tutorialId);
+            if (tutorial == null)
+            {
+                throw new Exception("Tutorial not found");
             }
 
             return tutorial;

@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 using insulin_backend.Database.Models;
+using insulin_backend.Services.Exceptions;
 
 namespace insulin_backend.Database.Repository.Extended
 {
@@ -13,18 +16,48 @@ namespace insulin_backend.Database.Repository.Extended
             _dataContext = context;
         }
 
-        public Step CreateStep(Step step)
+        public async Task DeleteTutorialStepAsync(int tutorialId, int stepId, int languageId)
         {
-            try
+            
+            var tutorial =  _dataContext.Tutorials.FirstOrDefault(t => t.Id == tutorialId);
+            if (tutorial == null)
             {
-                _dataContext.Steps.Add(step);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
+                throw new Exception("Tutorial not found");
             }
 
-            return step;
+            var tutorialSteps = _dataContext.Steps.Where(s => s.TutorialId == tutorial.Id)
+                .ToList();
+
+            if (tutorialSteps == null)
+            {
+                throw new Exception("Tutorial Steps not found");
+            }
+
+            var tutorialStepsLanguage =  _dataContext.StepLanguage.Where(sl => sl.Id == languageId).ToList();
+            //Remove tutorial language steps
+            foreach (var tutorialStepLang in tutorialStepsLanguage)
+            {
+                _dataContext.Remove(tutorialStepLang);
+                _dataContext.SaveChanges();
+
+            }
+            for (int i = 0; i < tutorialSteps.Count; i++)
+            {
+                // Remove tutorial step and tutorial language 
+                if (tutorialSteps[i].Id == stepId)
+                {
+                    var stepNumberTemp = tutorialSteps[i].StepNumber;
+                    _dataContext.Remove(tutorialSteps[i]);
+                    // Decrement the tutorial number
+                    for (int j = 0; j < tutorialSteps.Count; j++)
+                    {
+                        if (tutorialSteps[j].StepNumber > stepNumberTemp)
+                        {
+                            tutorialSteps[j].StepNumber = --tutorialSteps[j].StepNumber;
+                        }
+                    }
+                }
+            }
         }
         
         public DataContext DataContext

@@ -1,17 +1,8 @@
 ﻿using System;
-using System.Diagnostics;
-using System.IO;
 using System.Threading.Tasks;
-using insulin_backend.Services;
+using insulin_backend.Database.Repository;
 using insulin_backend.Services.AzureService;
-using insulin_backend.Services.TutorialLanguageService;
-using insulin_backend.Services.TutorialService;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Azure.Storage;
-using Microsoft.Azure.Storage.Blob;
-using Microsoft.Extensions.Logging;
 
 namespace insulin_backend.Controllers
 {
@@ -21,19 +12,15 @@ namespace insulin_backend.Controllers
     {
         private readonly IAzureBlobService _azureBlobService;
 
-        private readonly ITutorialStepService _tutorialStepService;
-        private readonly ITutorialService _tutorialService;
+        private readonly IUnitOfWork _unitOfWork;
         private const string TutorialThumbnail = "TutorialThumbnail";
         private const string StepVideo = "StepVideo";
         private const string StepLanguageAudio = "StepLanguageAudio";
 
-        public UploadFileController(IAzureBlobService azureBlobService,
-           ITutorialStepService tutorialStepService,
-            ITutorialService tutorialService)
+        public UploadFileController(IAzureBlobService azureBlobService, IUnitOfWork unitOfWork)
         {
             _azureBlobService = azureBlobService;
-            _tutorialStepService = tutorialStepService;
-            _tutorialService = tutorialService;
+            _unitOfWork = unitOfWork;
         }
 
 
@@ -42,7 +29,7 @@ namespace insulin_backend.Controllers
         {
             try
             {
-                 _tutorialService.FindTutorialById(tutorialId);
+                 _unitOfWork.Tutorials.FindTutorialById(tutorialId);
                 await UploadFileAsync(TutorialThumbnail, tutorialId);
                 return Ok();
             }
@@ -58,7 +45,7 @@ namespace insulin_backend.Controllers
         {
             try
             {
-                 _tutorialStepService.FindStepById(stepId);
+                 _unitOfWork.Steps.FindStepById(stepId);
                 await UploadFileAsync(StepVideo, stepId);
                 return Ok();
             }
@@ -74,7 +61,7 @@ namespace insulin_backend.Controllers
         {
             try
             {
-                 _tutorialStepService.FindStepLanguageById(stepLanguageId);
+                 _unitOfWork.StepLanguages.FindStepLanguageById(stepLanguageId);
                 await UploadFileAsync(StepLanguageAudio, stepLanguageId);
                 return Ok();
             }

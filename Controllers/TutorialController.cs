@@ -1,4 +1,4 @@
-﻿using insulin_backend.Services.TutorialService;
+﻿using System;
 using insulin_backend.Database.Models;
 using insulin_backend.Database.Repository;
 using insulin_backend.Services.Exceptions;
@@ -18,15 +18,18 @@ namespace insulin_backend.Controllers
         
         [HttpPost]
         [Route("tutorials/create")]
-        public ActionResult<Tutorial> CreateTutorial([FromBody] string color, [FromBody] string thumbnail)
+        public ActionResult<Tutorial> CreateTutorial([FromBody] Tutorial tutorialObj)
         {
             try
             {
                 Tutorial tutorial = _unitOfWork.Tutorials.CreateTutorial(new Tutorial()
                 {
-                    Color = color,
-                    Thumbnail = thumbnail,
+                    Color = tutorialObj.Color,
+                    ThumbnailUrl = tutorialObj.ThumbnailUrl,
+                    isPublished = tutorialObj.isPublished,
                 });
+                Console.WriteLine("Color: " + tutorial.Color);
+                _unitOfWork.Complete();
                 return Ok(tutorial);
             }
             catch (NotFoundException)
